@@ -2,9 +2,11 @@ docker_build('kong:local-dev', '.', dockerfile='Dockerfile')
 
 local_resource(
     'generate-kong-configmap',
-    'cmd /c generate-kong-configmap.sh',
+    'cd scripts && cmd /c generate-kong-configmap.sh && cd ..',
     deps=['config/kong.yml', 'generate-kong-configmap.sh'],
 )
+
+k8s_yaml(['k8s/kong-configmap.yaml', 'k8s/kong-deployment.yaml'])
 
 local_resource(
     'restart-kong',
@@ -12,8 +14,6 @@ local_resource(
     deps=['k8s/kong-configmap.yaml'],
     resource_deps=['generate-kong-configmap'],
 )
-
-k8s_yaml(['k8s/kong-configmap.yaml', 'k8s/kong-deployment.yaml'])
 
 watch_file('config/kong.yml')
 
