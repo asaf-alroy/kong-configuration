@@ -1,0 +1,27 @@
+apiVersion: v1
+data:
+  kong.yml: |-
+    _format_version: "3.0"
+    services:
+      - name: example-service
+        url: https://mockbin.org/request
+        routes:
+          - name: example-route
+            paths:
+              - /mock
+      - name: another-service
+        url: https://httpbin.org/anything
+        routes:
+          - name: another-route
+            paths:
+              - /httpbin
+        plugins:
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "x-added-header:example"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: kong-config

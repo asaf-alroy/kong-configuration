@@ -50,20 +50,3 @@ spec:
         - name: kong-config
           configMap:
             name: kong-config
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kong-config
-  labels:
-    app: kong
-data:
-  kong.yml: |
-    _format_version: "3.0"
-    services:
-      - name: example-service
-        url: https://mockbin.org/request
-        routes:
-          - name: example-route
-            paths:
-              - /mock 

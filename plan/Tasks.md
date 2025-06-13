@@ -5,27 +5,27 @@ This document breaks down the steps required to achieve a fully functional local
 ---
 
 ## 1. Repository & Tooling Setup
-- [ ] Initialize the project repository (if not already done)
-- [ ] Add a `.gitignore` for common artifacts (Docker, Kubernetes, Tilt, etc.)
-- [ ] Ensure Docker Desktop is installed and running
-- [ ] Ensure Kubernetes is enabled in Docker Desktop
-- [ ] Install Tilt
-- [ ] Install kubectl (Kubernetes CLI)
+- [x] Initialize the project repository (if not already done)
+- [x] Add a `.gitignore` for common artifacts (Docker, Kubernetes, Tilt, etc.)
+- [x] Ensure Docker Desktop is installed and running
+- [x] Ensure Kubernetes is enabled in Docker Desktop
+- [x] Install Tilt
+- [x] Install kubectl (Kubernetes CLI)
 
 ## 2. Kong Configuration
-- [ ] Create a base `kong.yml` declarative config file
-- [ ] Add example Service, Route, and Plugin definitions to `kong.yml`
+- [x] Create a base `kong.yml` declarative config file
+- [x] Add example of working with different files per Gateway Service, which all declare the Gateway Service itself, Routes and Plugins using the decK configuration tool.
 
 ## 3. Docker & Image Management
-- [ ] Write a `Dockerfile` for Kong (if custom image is needed)
-- [ ] Build the Kong image locally (e.g., `kong:local-dev`)
+- [x] Write a `Dockerfile` for Kong (if custom image is needed)
+- [x] Build the Kong image locally (e.g., `kong:local-dev`)
 - [ ] Push or load the image into the local Kubernetes cluster (handled by Tilt)
 
 ## 4. Kubernetes Manifests
-- [ ] Create a `k8s/` directory for manifests
-- [ ] Write a `Deployment` manifest for Kong in DB-less mode
-- [ ] Write a `Service` manifest to expose Kong proxy and admin ports (NodePort for local access)
-- [ ] Create a `ConfigMap` manifest to mount the local `kong.yml` into the Kong pod
+- [x] Create a `k8s/` directory for manifests
+- [x] Write a `Deployment` manifest for Kong in DB-less mode
+- [x] Write a `Service` manifest to expose Kong proxy and admin ports (NodePort for local access)
+- [x] Create a `ConfigMap` manifest to mount the assembled `kong.yml` into the Kong pod
 - [ ] Ensure manifests are parameterized for local development
 
 ## 5. Tilt Integration
@@ -33,12 +33,12 @@ This document breaks down the steps required to achieve a fully functional local
     - [ ] Build the Kong image
     - [ ] Apply Kubernetes manifests
     - [ ] Sync local `kong.yml` changes into the cluster (via ConfigMap regeneration or file sync)
-    - [ ] (Optional) Automate live reload by POSTing config to the Admin API on file change
+    - [ ] (Optional, local only) Automate live reload by POSTing config to the Admin API on file change using decK
 - [ ] Document how to use Tilt for local development
 
-## 6. Live Reload / Developer Experience
-- [ ] Implement a mechanism to detect changes in `kong.yml` and reload config in the running Kong pod (e.g., via Tilt local_resource or file watcher script)
-- [ ] Validate that live reload works as expected (edit `kong.yml`, see changes reflected without pod restart)
+## 6. Live Reload / Developer Experience (Local Only)
+- [ ] Implement a mechanism (using decK) to detect changes in `kong.yml` and reload config in the running Kong pod for local development only
+- [ ] Validate that live reload works as expected in local (edit `kong.yml`, see changes reflected without pod restart)
 - [ ] Add clear error messages/logging for failed reloads
 
 ## 7. Validation & Testing
@@ -47,7 +47,7 @@ This document breaks down the steps required to achieve a fully functional local
 
 ## 8. Documentation
 - [ ] Write a "Getting Started" section in the README for local setup
-- [ ] Document the live reload workflow and troubleshooting steps
+- [ ] Document the live reload workflow (local only) and troubleshooting steps
 - [ ] Add usage examples for common tasks (adding a service, route, plugin)
 
 ## 9. Optional Enhancements
@@ -57,4 +57,4 @@ This document breaks down the steps required to achieve a fully functional local
 
 ---
 
-**By completing these tasks, you will have a robust, developer-friendly local Kong Gateway environment with live reload, matching the goals set out in Planning.md.** 
+**By completing these tasks, you will have a robust, developer-friendly local Kong Gateway environment with live reload (local only), and a safe, static deployment process for preprod and prod, matching the goals set out in Planning.md.** 

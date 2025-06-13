@@ -27,4 +27,6 @@ __pycache__/
 *.DS_Store
 
 # Windows
-Thumbs.db 
+Thumbs.db
+
+plan/
