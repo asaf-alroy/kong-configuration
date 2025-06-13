@@ -1,4 +1,4 @@
-docker_build('kong:local-dev', '.', dockerfile='./docker/Dockerfile')
+docker_build('kong:local-dev', '.', dockerfile='Dockerfile')
 
 local_resource(
     'generate-kong-configmap',
