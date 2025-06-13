@@ -1,32 +1,15 @@
-# General
 *.log
 *.tmp
-.DS_Store
 node_modules/
 .env
-
-# Docker
 *.pid
 docker-compose.override.yml
-
-# Kubernetes
 *.kube/
 .kubeconfig
-
-# Tilt
 .tilt*
-
-# VSCode
 .vscode/
-
-# Python
 __pycache__/
 *.pyc
-
-# MacOS
 *.DS_Store
-
-# Windows
 Thumbs.db
-
 plan/
