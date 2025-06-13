@@ -1,0 +1,8 @@
+_format_version: "3.0"
+services:
+  - name: example-service
+    url: https://mockbin.org/request
+    routes:
+      - name: example-route
+        paths:
+          - /mock 
