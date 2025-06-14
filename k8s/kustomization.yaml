@@ -1,0 +1,3 @@
+resources:
+  - kong-configmap.yaml
+  - kong-deployment.yaml 
