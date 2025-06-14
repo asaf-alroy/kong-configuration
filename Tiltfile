@@ -7,12 +7,12 @@ local_resource(
     labels=["scripts"]
 )
 
-k8s_yaml(['k8s/kong-configmap.yaml', 'k8s/kong-deployment.yaml'])
+k8s_yaml(kustomize('k8s/'))
 
 local_resource(
     'restart-kong',
     'kubectl rollout restart deployment kong',
-    deps=['k8s/kong-configmap.yaml'],
+    deps=['k8s/'],
     resource_deps=['generate-kong-configmap'],
     labels=["scripts"]
 )

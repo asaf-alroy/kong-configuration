@@ -1,35 +1,14 @@
 apiVersion: v1
 data:
-  kong.yml: |-
-    _format_version: "3.0"
-    services:
-      - name: example-service
-        url: https://mockbin.org/request
-        routes:
-          - name: example-route
-            paths:
-              - /mock
-            plugins:
-              - name: key-auth
-                config:
-                  key_names:
-                    - apikey
-      - name: another-service
-        url: https://httpbin.org/anything
-        routes:
-          - name: another-route
-            paths:
-              - /httpbin
-        plugins:
-          - name: request-transformer
-            config:
-              add:
-                headers:
-                  - "x-added-header:example"
-    consumers:
-      - username: demo-user
-        keyauth_credentials:
-          - key: demo-api-key
+  kong.yml: "_format_version: \"3.0\"\r\nservices:\r\n  - name: example-service\r\n
+    \   url: https://mockbin.org/request\r\n    routes:\r\n      - name: example-route\r\n
+    \       paths:\r\n          - /mock\r\n        plugins:\r\n          - name: key-auth\r\n
+    \           config:\r\n              key_names:\r\n                - apikey\r\n
+    \ - name: another-service\r\n    url: https://httpbin.org/anything\r\n    routes:\r\n
+    \     - name: another-route\r\n        paths:\r\n          - /httpbin\r\n    plugins:\r\n
+    \     - name: request-transformer\r\n        config:\r\n          add:\r\n            headers:\r\n
+    \             - \"x-added-header:example\"\r\nconsumers:\r\n  - username: demo-user\r\n
+    \   keyauth_credentials:\r\n      - key: demo-api-key"
 kind: ConfigMap
 metadata:
   creationTimestamp: null
