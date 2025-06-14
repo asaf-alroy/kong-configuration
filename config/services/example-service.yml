@@ -1,0 +1,11 @@
+name: example-service
+url: https://mockbin.org/request
+routes:
+  - name: example-route
+    paths:
+      - /mock
+    plugins:
+      - name: key-auth
+        config:
+          key_names:
+            - apikey

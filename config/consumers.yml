@@ -1,0 +1,3 @@
+- username: demo-user
+  keyauth_credentials:
+    - key: demo-api-key
