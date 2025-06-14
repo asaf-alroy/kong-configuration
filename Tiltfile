@@ -17,8 +17,6 @@ local_resource(
     labels=["scripts"]
 )
 
-watch_file('config/kong.yml')
-
 k8s_resource(
     'kong',
     port_forwards=[8000, 8001],
