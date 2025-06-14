@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 
-const mainConfigPath = 'config/kong-main.yml';
+const mainConfigPath = 'config/template.yml';
 const servicesDir = 'config/services';
 const consumersFile = 'config/consumers.yml';
 const outFile = 'output/kong.yml';
