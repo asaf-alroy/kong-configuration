@@ -6,6 +6,11 @@ services:
       - name: example-route
         paths:
           - /mock
+        plugins:
+          - name: key-auth
+            config:
+              key_names:
+                - apikey
   - name: another-service
     url: https://httpbin.org/anything
     routes:
@@ -18,3 +23,7 @@ services:
           add:
             headers:
               - "x-added-header:example"
+consumers:
+  - username: demo-user
+    keyauth_credentials:
+      - key: demo-api-key
