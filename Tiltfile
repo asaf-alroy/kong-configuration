@@ -2,8 +2,8 @@ docker_build('kong:local-dev', '.', dockerfile='Dockerfile')
 
 local_resource(
     'generate-kong-configmap',
-    'bash scripts/generate-kong-configmap.sh',
-    deps=['config/kong.yml', 'generate-kong-configmap.sh'],
+    'node scripts/combine-kong-configs.cjs && bash scripts/generate-kong-configmap.sh',
+    deps=['config/', 'scripts/generate-kong-configmap.sh'],
     labels=["scripts"]
 )
 
