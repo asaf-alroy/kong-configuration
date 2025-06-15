@@ -4,8 +4,8 @@ k8s_yaml(kustomize('k8s/'))
 
 local_resource(
     'generate-kong-configmap',
-    'node scripts/combine-kong-configs.mjs && bash scripts/generate-kong-configmap.sh',
-    deps=['config/', 'scripts/generate-kong-configmap.sh'],
+    'node scripts/combine-kong-configs.mjs && node scripts/generate-kong-configmap.mjs',
+    deps=['config/', 'scripts/generate-kong-configmap.mjs'],
     labels=["scripts"]
 )
 
