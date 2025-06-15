@@ -19,7 +19,7 @@ const consumers = yaml.load(fs.readFileSync(consumersFile, 'utf8'));
 mainConfig.services = services;
 mainConfig.consumers = consumers;
 
-const ds = yaml.dump(mainConfig, { lineWidth: -1 });
-fs.writeFileSync(outFile, ds, 'utf8');
+const yamlConfig = yaml.dump(mainConfig, { lineWidth: -1 });
+fs.writeFileSync(outFile, yamlConfig, 'utf8');
 
 console.log(`Combined config written to ${outFile}`);
