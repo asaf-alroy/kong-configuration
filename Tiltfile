@@ -12,7 +12,7 @@ local_resource(
 local_resource(
     'restart-kong',
     'kubectl rollout restart deployment kong',
-    resource_deps=['generate-kong-configmap'],
+    resource_deps=['kong'],
     deps=['k8s/'],
     labels=["scripts"]
 )
@@ -21,6 +21,5 @@ k8s_resource(
     'kong',
     port_forwards=[8000, 8001],
     extra_pod_selectors=[{'app': 'kong'}],
-    resource_deps=['restart-kong'],
     labels=["applications"]
 )
