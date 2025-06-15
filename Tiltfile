@@ -1,19 +1,19 @@
 docker_build('kong:local-dev', '.', dockerfile='Dockerfile')
 
+k8s_yaml(kustomize('k8s/'))
+
 local_resource(
     'generate-kong-configmap',
-    'node scripts/combine-kong-configs.cjs && bash scripts/generate-kong-configmap.sh',
+    'node scripts/combine-kong-configs.mjs && bash scripts/generate-kong-configmap.sh',
     deps=['config/', 'scripts/generate-kong-configmap.sh'],
     labels=["scripts"]
 )
 
-k8s_yaml(kustomize('k8s/'))
-
 local_resource(
     'restart-kong',
     'kubectl rollout restart deployment kong',
-    deps=['k8s/'],
     resource_deps=['generate-kong-configmap'],
+    deps=['k8s/'],
     labels=["scripts"]
 )
 
