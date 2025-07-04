@@ -1,9 +1,9 @@
 import { execSync } from 'child_process';
 import fs from 'fs';
 
-const output = 'k8s/kong-configmap.yaml';
+const output = 'output/kong-configmap.yaml';
 const configMapName = 'kong-config';
-const kongYml = 'output/kong.yml';
+const kongYml = 'config/kong.yml';
 
 try {
     const stdout = execSync(

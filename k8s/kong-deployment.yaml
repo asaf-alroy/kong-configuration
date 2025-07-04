@@ -13,6 +13,10 @@ spec:
       port: 8001
       targetPort: 8001
       nodePort: 30081
+    - name: admin-gui
+      port: 8002
+      targetPort: 8002
+      nodePort: 30082
   selector:
     app: kong
 ---
@@ -30,23 +34,47 @@ spec:
       labels:
         app: kong
     spec:
+      initContainers:
+        - name: kong-migrations
+          image: kong:local-dev
+          command: ['kong', 'migrations', 'bootstrap']
+          env:
+            - name: KONG_DATABASE
+              value: postgres
+            - name: KONG_PG_HOST
+              value: postgres
+            - name: KONG_PG_PORT
+              value: "5432"
+            - name: KONG_PG_USER
+              value: kong
+            - name: KONG_PG_PASSWORD
+              value: kong
+            - name: KONG_PG_DATABASE
+              value: kong
       containers:
         - name: kong
           image: kong:local-dev
           env:
             - name: KONG_DATABASE
-              value: "off"
-            - name: KONG_DECLARATIVE_CONFIG
-              value: /kong/declarative/kong.yml
+              value: postgres
+            - name: KONG_PG_HOST
+              value: postgres
+            - name: KONG_PG_PORT
+              value: "5432"
+            - name: KONG_PG_USER
+              value: kong
+            - name: KONG_PG_PASSWORD
+              value: kong
+            - name: KONG_PG_DATABASE
+              value: kong
             - name: KONG_ADMIN_LISTEN
               value: 0.0.0.0:8001
+            - name: KONG_ADMIN_GUI_LISTEN
+              value: 0.0.0.0:8002
+            - name: KONG_ADMIN_GUI_URL
+              value: http://localhost:8002
           ports:
             - containerPort: 8000
             - containerPort: 8001
-          volumeMounts:
-            - name: kong-config
-              mountPath: /kong/declarative
-      volumes:
-        - name: kong-config
-          configMap:
-            name: kong-config
+            - containerPort: 8002
+      # No volumes needed for database mode

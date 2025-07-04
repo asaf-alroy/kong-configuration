@@ -3,23 +3,37 @@ docker_build('kong:local-dev', '.', dockerfile='Dockerfile')
 k8s_yaml(kustomize('k8s/'))
 
 local_resource(
-    'generate-kong-configmap',
-    'node scripts/combine-kong-configs.mjs && node scripts/generate-kong-configmap.mjs',
-    deps=['config/', 'scripts/generate-kong-configmap.mjs'],
-    labels=["scripts"]
+    'sync-to-db',
+    'node scripts/sync-to-db.mjs',
+    resource_deps=['kong'],
+    deps=['config/kong.yml', 'scripts/sync-to-db.mjs'],
+    labels=["sync"]
 )
 
 local_resource(
-    'restart-kong',
-    'kubectl rollout restart deployment kong',
+    'sync-from-admin',
+    serve_cmd='node scripts/sync-from-admin.mjs',
     resource_deps=['kong'],
-    deps=['k8s/'],
+    deps=['scripts/sync-from-admin.mjs'],
+    labels=["sync"]
+)
+
+local_resource(
+    'generate-kong-configmap',
+    'node scripts/generate-kong-configmap.mjs',
+    deps=['config/kong.yml', 'scripts/generate-kong-configmap.mjs'],
     labels=["scripts"]
 )
 
 k8s_resource(
+    'postgres',
+    labels=["database"]
+)
+
+k8s_resource(
     'kong',
-    port_forwards=[8000, 8001],
+    resource_deps=['postgres'],
+    port_forwards=[8000, 8001, 8002],
     extra_pod_selectors=[{'app': 'kong'}],
     labels=["applications"]
 )
