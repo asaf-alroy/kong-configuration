@@ -6,7 +6,7 @@ local_resource(
     'sync-to-db',
     'node scripts/sync-to-db.mjs',
     resource_deps=['kong'],
-    deps=['config/kong.yml', 'scripts/sync-to-db.mjs'],
+    deps=['scripts/sync-to-db.mjs'],
     labels=["sync"]
 )
 
