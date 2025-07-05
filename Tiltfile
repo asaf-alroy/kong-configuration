@@ -11,18 +11,11 @@ local_resource(
 )
 
 local_resource(
-    'sync-from-admin',
-    serve_cmd='node scripts/sync-from-admin.mjs',
+    'sync-configs',
+    serve_cmd='node scripts/sync-configs.mjs',
     resource_deps=['kong'],
-    deps=['scripts/sync-from-admin.mjs'],
+    deps=['scripts/sync-configs.mjs'],
     labels=["sync"]
-)
-
-local_resource(
-    'generate-kong-configmap',
-    'node scripts/generate-kong-configmap.mjs',
-    deps=['config/kong.yml', 'scripts/generate-kong-configmap.mjs'],
-    labels=["scripts"]
 )
 
 k8s_resource(
