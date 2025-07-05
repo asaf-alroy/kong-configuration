@@ -1,4 +1,4 @@
-docker_build('kong:local-dev', '.', dockerfile='Dockerfile')
+docker_build('kong:local-dev', 'docker')
 
 k8s_yaml(kustomize('k8s/'))
 
