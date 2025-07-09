@@ -4,7 +4,7 @@ k8s_yaml(kustomize('k8s/'))
 
 local_resource(
     'sync-to-db',
-    'deck gateway sync --kong-addr http://localhost:8001 --state config/kong.yml',
+    'deck gateway sync --kong-addr http://localhost:8001 config/kong.yml',
     resource_deps=['kong'],
     labels=["sync"]
 )
